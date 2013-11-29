@@ -11,7 +11,7 @@ var mimeTypes = {
 };
 
 var cache = {};
-function cacheAndDeliver(f, cb) {
+var cacheAndDeliver = function(f, cb) {
 	if(!cache[f]) {
 		fs.readFile(f, function(err, data) {
 			if(!err) {
@@ -39,7 +39,7 @@ http.createServer(function(request, response) {
 					return;
 				}
 
-				var headers = {'Content-type' : mimeTypes[path.extname(lookup)]};
+				var headers = {'Content-type' : mimeTypes[path.extname(f)]};
 				response.writeHead(200, headers);
 				response.end(data);
 			});
